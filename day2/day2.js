@@ -1,5 +1,9 @@
-var fs = require("fs");
-
+/**
+ * Summary. Run intcode pragram and return value in 0th position
+ * @param {Array} inputData   Representation of intcode pgm
+ * @param {int} noun          Value for noun (1st position in inputData)
+ * @param {int} verb          Value for verb (2st position in inputData)
+ */
 function runIntcodeProgram(inputData, noun, verb) {
   var intcodeProgram = Object.assign([], inputData);
   intcodeProgram[1] = noun;
@@ -26,18 +30,27 @@ function runIntcodeProgram(inputData, noun, verb) {
   return intcodeProgram[0];
 }
 
+/**
+ * Summary. Restrore gravity assist program by setting the noun to 12 and verb to 2
+ * @param {Array} inputData   Representation of intcode pgm
+ */
 function restoreGravityAssistProgram(inputData) {
   var noun = 12;
   var verb = 2;
 
   var output = runIntcodeProgram(inputData, noun, verb);
 
-  console.log(
-    "1202 Program Alarm State: the value in position 0 when the program halts is",
-    output
+  return (
+    "1202 Program Alarm State: the value in position 0 when the program halts is " +
+    output.toString()
   );
 }
 
+/**
+ * Summary. Find combination of noun and verb that will yield desiredOutput in 0th position
+ * @param {Array} inputData       Representation of intcode pgm
+ * @param {int} desiredOutput   Desired number in 0th position at the end
+ */
 function testAllInputs(inputData, desiredOutput) {
   var noun;
   var verb;
@@ -52,34 +65,26 @@ function testAllInputs(inputData, desiredOutput) {
   return { noun: null, verb: null };
 }
 
+/**
+ * Summary. Find combination of noun and verb that will yield 19690720 in 0th position
+ * @see testAllInputs
+ * @param {Array} inputData     Representation of intcode pgm
+ */
 function completeGravityAssist(inputData) {
   var desiredOutput = 19690720;
   var { noun, verb } = testAllInputs(inputData, desiredOutput);
 
-  if (!noun || !verb) console.log(desiredOutput, "cannot be produced");
+  if (!noun || !verb) return desiredOutput.toString() + " cannot be produced";
   else
-    console.log(
-      (100 * noun + verb).toString(),
-      "-->",
-      "To produce",
-      desiredOutput,
-      "the noun is",
-      noun,
-      "and the verb is",
-      verb
+    return (
+      (100 * noun + verb).toString() +
+      " --> To produce " +
+      desiredOutput.toString() +
+      " the noun is " +
+      noun.toString() +
+      " and the verb is " +
+      verb.toString()
     );
 }
 
-var inputData = fs
-  .readFileSync("day_2_input.txt")
-  .toString()
-  .split(",")
-  .map(function(x) {
-    return parseInt(x, 10);
-  });
-
-restoreGravityAssistProgram(inputData);
-
-console.time("completeGravityAssist");
-completeGravityAssist(inputData);
-console.timeEnd("completeGravityAssist");
+module.exports = { restoreGravityAssistProgram, completeGravityAssist };
