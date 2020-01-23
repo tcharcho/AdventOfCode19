@@ -42,28 +42,32 @@ function testAllInputs(inputData, desiredOutput) {
   var noun;
   var verb;
 
-  for (noun = 0; noun < 99; noun++) {
-    for (verb = 0; verb < 99; verb++) {
+  for (noun = 0; noun <= 99; noun++) {
+    for (verb = 0; verb <= 99; verb++) {
       output = runIntcodeProgram(inputData, noun, verb);
       if (output == desiredOutput) return { noun, verb };
     }
   }
+
+  return { noun: null, verb: null };
 }
 
 function completeGravityAssist(inputData) {
   var desiredOutput = 19690720;
   var { noun, verb } = testAllInputs(inputData, desiredOutput);
 
-  console.log(
-    (100 * noun + verb).toString(),
-    "-->",
-    "To produce",
-    desiredOutput,
-    "the noun is",
-    noun,
-    "and the verb is",
-    verb
-  );
+  if (!noun || !verb) console.log(desiredOutput, "cannot be produced");
+  else
+    console.log(
+      (100 * noun + verb).toString(),
+      "-->",
+      "To produce",
+      desiredOutput,
+      "the noun is",
+      noun,
+      "and the verb is",
+      verb
+    );
 }
 
 var inputData = fs
@@ -75,4 +79,7 @@ var inputData = fs
   });
 
 restoreGravityAssistProgram(inputData);
+
+console.time("completeGravityAssist");
 completeGravityAssist(inputData);
+console.timeEnd("completeGravityAssist");
