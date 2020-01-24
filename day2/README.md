@@ -66,7 +66,9 @@ In order to accurately map the operations, I needed to take into account that **
 ### Excution
 Once the tree has been constructed, the equation string can look like this:
 
-`( 4+( ( 5+( ( ( 2+( 1+( 3*( 2*( 2+( 2*( ( 4*( ( ( ( 1+( ( ( 4*( 2+( 2+( 3+( ( ( 3*( 2+( 2*( 3+( 1+( noun*( pgm[verb]+pgm[noun] ) ) ) ) ) ) )+2 )*4 ) ) ) ) )+2 )*2 ) )*5 )+4 )+1 ) )+1 ) ) ) ) ) ) )*2 )+1 ) )+verb ) )`
+```
+( 4+( ( 5+( ( ( 2+( 1+( 3*( 2*( 2+( 2*( ( 4*( ( ( ( 1+( ( ( 4*( 2+( 2+( 3+( ( ( 3*( 2+( 2*( 3+( 1+( noun*( pgm[verb]+pgm[noun] ) ) ) ) ) ) )+2 )*4 ) ) ) ) )+2 )*2 ) )*5 )+4 )+1 ) )+1 ) ) ) ) ) ) )*2 )+1 ) )+verb ) )
+```
 
 At this point I will set the values for `verb` and `noun`, as well as have a variable `pgm` for the intcode program.
 Running the string equation with the `eval()` function in JavaScript, yields the output in position 0 at the end of the run, given the dynamic inputs for noun and verb.
